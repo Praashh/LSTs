@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Zap, Shield, Layers } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const featureVariants = {
@@ -63,7 +64,9 @@ const HomePage = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 flex items-center mx-auto space-x-2">
-            <span>Get Started</span>
+            <Link to={"/stake"}>
+              <span>Get Started</span>
+            </Link>
             <ArrowRight className="w-5 h-5" />
           </button>
         </motion.div>

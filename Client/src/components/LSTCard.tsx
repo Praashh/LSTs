@@ -1,13 +1,16 @@
 import  { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { getWalletBalance } from '../lib/GetBalance';
+import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 
 
 const LSTStakingCard = () => {
   const [stakeAmount, setStakeAmount] = useState('');
+  const {connection} =  useConnection()
   const [isStaking, setIsStaking] = useState(false);
-  const {publicKey} = useWallet()
+  const {publicKey, sendTransaction} = useWallet();
+
 
   const handleStakeSubmit = async(e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -19,7 +22,22 @@ const LSTStakingCard = () => {
     }else{
       alert(balance);
     }
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: publicKey!,
+        toPubkey: new PublicKey("9kQGWWmror3KP7nhe6hiYpWMjJn5GcAHDoRbPdXvKn6u"),
+        lamports: parseFloat(stakeAmount) * 1e9,
+      })
+    );
+    transaction.feePayer = publicKey!;
+    transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+    const signature = await sendTransaction(transaction, connection);
+    console.log("signature", signature);
+    console.log("signature", signature);
+        
+    const confirmation = await connection.getSignatureStatuses([signature],{searchTransactionHistory:true});
 
+    console.log("confirmation", confirmation);
     setIsStaking(false);
 
   };
