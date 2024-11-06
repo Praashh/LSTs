@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/types/user.ts","./src/utils/create_token_account.ts","./src/utils/secTOarr.ts","./src/utils/token_mint.ts","./src/utils/transfer_token.ts","./src/utils/upload_metadata.ts"],"version":"5.6.3"}
+{"root":["./src/env.state.ts","./src/index.ts","./src/types/user.ts","./src/utils/create_token_account.ts","./src/utils/secTOarr.ts","./src/utils/token_mint.ts","./src/utils/transfer_token.ts","./src/utils/upload_metadata.ts"],"version":"5.6.3"}
